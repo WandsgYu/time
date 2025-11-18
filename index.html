@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>时间显示</title>
+    <title>时间显示（时:分）</title>
     <style>
         * {
             margin: 0;
@@ -27,7 +27,7 @@
         }
         
         .time-display {
-            font-size: 20vw;
+            font-size: 30vw; /* 原20vw × 1.5 */
             font-weight: bold;
             letter-spacing: 0.05em;
             text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
@@ -37,20 +37,20 @@
         /* 响应式设计 */
         @media (max-width: 768px) {
             .time-display {
-                font-size: 35vw;
+                font-size: 52.5vw; /* 原35vw × 1.5 */
             }
         }
         
         @media (max-width: 480px) {
             .time-display {
-                font-size: 40vw;
+                font-size: 60vw; /* 原40vw × 1.5 */
             }
         }
     </style>
 </head>
 <body>
     <div class="time-container">
-        <div class="time-display" id="timeDisplay">00:00:00</div>
+        <div class="time-display" id="timeDisplay">00:00</div>
     </div>
 
     <script>
@@ -58,17 +58,17 @@
             const now = new Date();
             const hours = now.getHours().toString().padStart(2, '0');
             const minutes = now.getMinutes().toString().padStart(2, '0');
-            const seconds = now.getSeconds().toString().padStart(2, '0');
             
-            const timeString = `${hours}:${minutes}:${seconds}`;
+            // 只拼接时和分，去掉秒
+            const timeString = `${hours}:${minutes}`;
             document.getElementById('timeDisplay').textContent = timeString;
         }
         
         // 立即更新时间
         updateTime();
         
-        // 每秒更新一次
-        setInterval(updateTime, 1000);
+        // 每分钟更新一次（优化性能，无需每秒更新）
+        setInterval(updateTime, 60000);
     </script>
 </body>
 </html>
